@@ -1,4 +1,6 @@
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using GrayMe.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,10 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API para cadastro de crianças (sem banco, em memória)."
     });
 });
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<GrayMeContext>(options =>
+    options.UseNpgsql(connectionString));
 
 var app = builder.Build();
 

@@ -2,13 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GrayMe.Models
 {
-    public enum Sexo
-    {
-        Masculino,
-        Feminino,
-        Outro
-    }
-
     public class CriancaDto
     {
         [Required, MinLength(2), MaxLength(100)]

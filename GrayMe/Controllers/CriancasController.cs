@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using GrayMe.Models;
+using GrayMe.Data;
 
 namespace GrayMe.Controllers
 {
@@ -7,36 +9,41 @@ namespace GrayMe.Controllers
     [Route("api/[controller]")]
     public class CriancasController : ControllerBase
     {
-        private static readonly List<Crianca> _db = new();
-        private static int _nextId = 1;
+        private readonly GrayMeContext _context;
 
-        /// <summary>
-        /// Cadastra uma criança.
-        /// </summary>
+        public CriancasController(GrayMeContext context)
+        {
+            _context = context;
+        }
+
         [HttpPost]
-        public ActionResult<Crianca> Cadastrar([FromBody] CriancaDto dto)
+        public async Task<ActionResult<Crianca>> Cadastrar([FromBody] CriancaDto dto)
         {
             var crianca = new Crianca
             {
-                Id = _nextId++,
                 Nome = dto.Nome.Trim(),
                 Idade = dto.Idade,
                 Sexo = dto.Sexo,
                 Observacoes = string.IsNullOrWhiteSpace(dto.Observacoes) ? null : dto.Observacoes.Trim()
             };
 
-            _db.Add(crianca);
+            _context.Criancas.Add(crianca);
+            await _context.SaveChangesAsync();
+
             return CreatedAtAction(nameof(ObterPorId), new { id = crianca.Id }, crianca);
         }
 
-        /// <summary>
-        /// Consulta uma criança pelo ID.
-        /// </summary>
         [HttpGet("{id:int}")]
-        public ActionResult<Crianca> ObterPorId(int id)
+        public async Task<ActionResult<Crianca>> ObterPorId(int id)
         {
-            var item = _db.FirstOrDefault(c => c.Id == id);
+            var item = await _context.Criancas.FindAsync(id);
             return item is null ? NotFound() : Ok(item);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Crianca>>> ListarTodos()
+        {
+            return await _context.Criancas.ToListAsync();
         }
     }
 }
