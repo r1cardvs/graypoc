@@ -1,0 +1,6 @@
+@GrayMe_HostAddress = http://localhost:5137
+
+GET {{GrayMe_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
