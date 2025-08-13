@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GrayMe")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ddd0fe84158573e1f4c7b0a7060a5b08afa07c6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3c30b2e780f14b1532d9c9c1b95cb832cc8deee1")]
 [assembly: System.Reflection.AssemblyProductAttribute("GrayMe")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GrayMe")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
